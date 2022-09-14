@@ -3,7 +3,9 @@ import {FilterValuesType} from './App';
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
 import {NewComponentMap} from "./components/NewComponentMap";
-import {Button} from "./components/Button";
+import {Button} from "@material-ui/core";
+import {IconButton} from "@material-ui/core";
+import {Delete} from "@material-ui/icons";
 
 export type TaskType = {
     id: string
@@ -63,6 +65,11 @@ export function Todolist(props: PropsType) {
     const changeFilterHandler=(filterValue:FilterValuesType)=>{
         props.changeFilter(filterValue,props.id)
     }
+   const removeTodolist=()=>{props.removeTodolist(props.id)}
+
+    const onAllClickHandler = () => props.changeFilter("all", props.id);
+    const onActiveClickHandler = () => props.changeFilter("active", props.id);
+    const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
 
 
     return <div>
@@ -70,7 +77,10 @@ export function Todolist(props: PropsType) {
             <EditableSpan changeTitle={editTitleTodolistHandler} title={props.title}/>
             {/*<span>{props.title}</span>*/}
             {/*<button onClick={removeTodolist}>x</button>*/}
-            <Button callBack={()=>props.removeTodolist(props.id)} name={'X'} />
+         {/*   <Button callBack={()=>props.removeTodolist(props.id)} name={'X'} />*/}
+            <IconButton onClick={removeTodolist} >
+                <Delete />
+            </IconButton>
         </h3>
         <AddItemForm addItem={addTaskHandler}/>
         <NewComponentMap
@@ -82,10 +92,23 @@ export function Todolist(props: PropsType) {
         />
 
         <div>
-            <Button callBack={()=>changeFilterHandler('all')} filter={props.filter} name={'all'}/>
-            <Button callBack={()=>changeFilterHandler('active')} filter={props.filter} name={'active'}/>
+           {/* <Button  callBack={()=>changeFilterHandler('all')} filter={props.filter} name={'all'}/>*/}
+           {/* <Button callBack={()=>changeFilterHandler('active')} filter={props.filter} name={'active'}/>
             <Button callBack={()=>changeFilterHandler('completed')} filter={props.filter} name={'completed'}/>
-
+           */}
+            <Button variant={props.filter === 'all' ? 'outlined' : 'text'}
+                    onClick={onAllClickHandler}
+                    color={'default'}
+            >All
+            </Button>
+            <Button variant={props.filter === 'active' ? 'outlined' : 'text'}
+                    onClick={onActiveClickHandler}
+                    color={'primary'}>Active
+            </Button>
+            <Button variant={props.filter === 'completed' ? 'outlined' : 'text'}
+                    onClick={onCompletedClickHandler}
+                    color={'secondary'}>Completed
+            </Button>
         </div>
     </div>
 }
