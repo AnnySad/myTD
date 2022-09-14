@@ -3,7 +3,7 @@ import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from "./components/AddItemForm";
-import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -42,12 +42,12 @@ function App() {
     });
 
 
-    const editTitleTodolist=( todolistId: string,title:string)=>{
-        setTodolists(todolists.map(el=>el.id===todolistId ? {...el,title} : el))
+    const editTitleTodolist = (todolistId: string, title: string) => {
+        setTodolists(todolists.map(el => el.id === todolistId ? {...el, title} : el))
     }
 
-    const editTitleTask=(todolistId: string,taskID:string ,title:string)=>{
-        setTasks({...tasks,[todolistId]:tasks[todolistId].map(el=>el.id===taskID ? {...el,title}: el)})
+    const editTitleTask = (todolistId: string, taskID: string, title: string) => {
+        setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskID ? {...el, title} : el)})
         console.log(title)
     }
 
@@ -125,37 +125,47 @@ function App() {
                     </Button>
                 </Toolbar>
             </AppBar>
-            <AddItemForm addItem={addTodolist}/>
-            {
-                todolists.map(tl => {
-                    let allTodolistTasks = tasks[tl.id];
-                    let tasksForTodolist = allTodolistTasks;
 
-                    if (tl.filter === "active") {
-                        tasksForTodolist = allTodolistTasks.filter(t => t.isDone === false);
+            <Container fixed>
+                <Grid container style={{padding:'20px'}}>  {/*зададим верхнему гриду (вокруг AddItemForm) паддинг*/}
+                    <AddItemForm addItem={addTodolist}/>
+                </Grid>
+                <Grid container spacing={3}> {/*для родительского зададим spacing (отступы внутри между детьми)*/}
+                    {
+                        todolists.map(tl => {
+                            let allTodolistTasks = tasks[tl.id];
+                            let tasksForTodolist = allTodolistTasks;
+
+                            if (tl.filter === "active") {
+                                tasksForTodolist = allTodolistTasks.filter(t => t.isDone === false);
+                            }
+                            if (tl.filter === "completed") {
+                                tasksForTodolist = allTodolistTasks.filter(t => t.isDone === true);
+                            }
+
+                            return <Grid item>
+                                <Paper style={{padding:'10px'}}> {/*Обернем каждый тудулист Paper-ом
+                                    с заданным дополнительным стилем для паддинга (внутренного отступа)*/}
+                            <Todolist
+                                key={tl.id}
+                                id={tl.id}
+                                title={tl.title}
+                                tasks={tasksForTodolist}
+                                removeTask={removeTask}
+                                changeFilter={changeFilter}
+                                addTask={addTask}
+                                changeTaskStatus={changeStatus}
+                                filter={tl.filter}
+                                removeTodolist={removeTodolist}
+                                editTitleTodolist={editTitleTodolist}
+                                editTitleTask={editTitleTask}
+                            />
+                            </Paper>
+                            </Grid>
+                        })
                     }
-                    if (tl.filter === "completed") {
-                        tasksForTodolist = allTodolistTasks.filter(t => t.isDone === true);
-                    }
-
-                    return <Todolist
-                        key={tl.id}
-                        id={tl.id}
-                        title={tl.title}
-                        tasks={tasksForTodolist}
-                        removeTask={removeTask}
-                        changeFilter={changeFilter}
-                        addTask={addTask}
-                        changeTaskStatus={changeStatus}
-                        filter={tl.filter}
-                        removeTodolist={removeTodolist}
-                        editTitleTodolist={editTitleTodolist}
-                        editTitleTask={editTitleTask}
-                    />
-
-                })
-            }
-
+                </Grid>
+            </Container>
         </div>
     );
 }
