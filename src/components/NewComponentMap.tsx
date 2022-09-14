@@ -21,7 +21,7 @@ export const NewComponentMap = (props:NewComponentMapPropsType) => {
         editTitleTask(todolistID, taskID, title)
     }
     return (
-        <ul>
+        <div>
             {
                 tasks.map(t => {
                     const onClickHandler = () => removeTask(t.id, todolistID)
@@ -30,7 +30,7 @@ export const NewComponentMap = (props:NewComponentMapPropsType) => {
                         changeTaskStatus(t.id, newIsDoneValue, todolistID);
                     }
 
-                    return <li key={t.id} className={t.isDone ? "is-done" : ""}>
+                    return <div key={t.id} className={t.isDone ? "is-done" : ""}>
                         <Checkbox
                             checked={t.isDone}
                             color="primary"
@@ -42,10 +42,10 @@ export const NewComponentMap = (props:NewComponentMapPropsType) => {
                         <IconButton onClick={onClickHandler} >
                             <Delete />
                         </IconButton>
-                    </li>
+                    </div>
                 })
             }
-        </ul>
+        </div>
 
     );
 };
