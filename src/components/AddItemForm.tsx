@@ -1,4 +1,4 @@
-import React, {KeyboardEvent,ChangeEvent, useState} from 'react';
+import React, {KeyboardEvent, ChangeEvent, useState} from 'react';
 import {Button, TextField} from "@material-ui/core";
 
 type AddItemFormType = {
@@ -17,30 +17,31 @@ export const AddItemForm = (props: AddItemFormType) => {
         }
     }
 
-    const onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value)
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-      setError(null)
-        if (e.key=== 'Enter') {
+        setError(null)
+        if (e.key === 'Enter') {
             addItem()
         }
     }
 
     return (
         <div>
-                <TextField
-                    id="outlined-secondary"
-                    variant="outlined"
-                    color="primary"
-                    value={title}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? 'error' : ''}
+            <TextField
+                id="outlined-secondary"
+                variant="outlined"
+                color="primary"
+                value={title}
+                onChange={onChangeHandler}
+                onKeyPress={onKeyPressHandler}
+                error={!!error}
+                label='Title'
+                helperText={error}
             />
-           {/* <button onClick={addItem}>+</button>*/}
+            {/* <button onClick={addItem}>+</button>*/}
             <Button onClick={addItem} variant="contained" color="primary">+</Button>
-            {error && <div className='error-message'> {error }</div>}
         </div>
     );
 };
