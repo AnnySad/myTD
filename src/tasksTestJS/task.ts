@@ -72,7 +72,14 @@ export function getSum(number: number):number {
 
 export const getBanknoteList=(num:number): Array<number> =>{
     const banknotes = [1000, 500, 100, 50, 20, 10, 5, 2, 1]
-    return []
+    const banknotesList : Array<number>=[]
+    for ( let i = 0; i<banknotes.length; i++){
+        while (num >= banknotes[i]){
+            banknotesList.push(banknotes[i])
+            num = num - banknotes[i]
+        }
+    }
+    return banknotesList
 }
 export const sumOfNum=(num:number)=>{
     let sum = 0
