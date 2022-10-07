@@ -71,10 +71,7 @@ function App() {
     }
 
 
-    const editTitleTask = (todolistId: string, taskID: string, title: string) => {
-        setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskID ? {...el, title} : el)})
-        console.log(title)
-    }
+
     function removeTask(id: string, todolistId: string) {
         //достанем нужный массив по todolistId:
         let todolistTasks = tasks[todolistId];
@@ -103,6 +100,9 @@ function App() {
             // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
             setTasks({...tasks});
         }
+    }
+    const changeTitleTask = (todolistId: string, taskID: string, title: string) => {
+        setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskID ? {...el, title} : el)})
     }
 
 
@@ -157,7 +157,7 @@ function App() {
                                 filter={tl.filter}
                                 removeTodolist={removeTodolist}
                                 editTitleTodolist={editTitleTodolist}
-                                editTitleTask={editTitleTask}
+                                editTitleTask={changeTitleTask}
                             />
                             </Paper>
                             </Grid>
