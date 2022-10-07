@@ -6,9 +6,11 @@ type RemoveTodolistAT = {
     type: "REMOVE-TODO"
     id: string
 }
-type AddTodolistAT = {
+export type AddTodolistAT = {
     type: "ADD-TODO"
     newTitle: string
+    todolistId: string
+
 }
 type EditTitleTodolistAT = {
     type: "EDIT-TITLE-TODO"
@@ -30,8 +32,8 @@ export const todolistsReducer = (todolists: Array<TodolistType>, action: ActionT
             return todolists.filter(tl => tl.id !== action.id)
 
         case "ADD-TODO":
-            let newID = v1()
-            let newTodolist: TodolistType = {id: newID, title: action.newTitle, filter: "all"}
+
+            let newTodolist: TodolistType = {id: action.todolistId, title: action.newTitle, filter: "all"}
             return [newTodolist, ...todolists]
 
         case "EDIT-TITLE-TODO":
@@ -57,7 +59,8 @@ export const RemoveTodolistAC = (id: string): RemoveTodolistAT => {
 export const AddTodolistAC = (newTitle: string): AddTodolistAT => {
     return {
         type: "ADD-TODO",
-        newTitle: newTitle
+        newTitle: newTitle,
+        todolistId: v1()
     }
 }
 export const EditTitleTodolistAC =(todolistId: string,title: string):EditTitleTodolistAT=>{
