@@ -13,7 +13,7 @@ export type TodolistType = {
     filter: FilterValuesType
 }
 
-type TasksStateType = {
+export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
@@ -69,6 +69,7 @@ function App() {
             setTodolists([...todolists])
         }
     }
+
 
     const editTitleTask = (todolistId: string, taskID: string, title: string) => {
         setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskID ? {...el, title} : el)})
