@@ -70,10 +70,10 @@ export const EditTitleTodolistAC =(todolistId: string,title: string):EditTitleTo
         title:title
     }
 }
-export const ChangeFilterAC = (filter: FilterValuesType,todolistId: string):ChangeFilterAT => {
+export const ChangeFilterAC = (value: FilterValuesType,todolistId: string):ChangeFilterAT => {
     return {
         type: "CHANGE-FILTER-TODO",
-        filter: filter,
+        filter: value,
         todolistId: todolistId
     }
 }
