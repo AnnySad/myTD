@@ -7,22 +7,23 @@ type AddItemFormType = {
 }
 
 export const AddItemForm = (props: AddItemFormType) => {
+    console.log('AddItemForm')
     let [title, setTitle] = useState('')
-    const [error, setError] = useState<string | null>(null)
+    const [error, setError] = useState<boolean>(false)
     const addItem = () => {
         if (title.trim() !== '') {
             props.addItem(title);
             setTitle('')
         } else {
-            setError('Title is required')
+            setError(true)
         }
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setError(false)
         setTitle(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
         if (e.key === 'Enter') {
             addItem()
         }
@@ -37,9 +38,9 @@ export const AddItemForm = (props: AddItemFormType) => {
                 value={title}
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
-                error={!!error}
+                error={error}
                 label='Title'
-                helperText={error}
+                helperText={error  ? 'Title is required' : ''}
             />
             {/* <button onClick={addItem}>+</button>*/}
            {/* <Button onClick={addItem} variant="contained" color="primary">+</Button>*/}
