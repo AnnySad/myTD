@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useCallback, useReducer, useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
@@ -60,10 +60,10 @@ const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state=> sta
     const editTitleTodolist = (todolistId: string, title: string) => {
         dispatch(EditTitleTodolistAC(todolistId,title))
     }
-    const addTodolist = (newTitle: string) => {
+    const addTodolist = useCallback((newTitle: string) => {
         let action = AddTodolistAC(newTitle)
         dispatch(action)
-    }
+    },[dispatch,AddTodolistAC])
 
     function removeTodolist(id: string) {
         let action = RemoveTodolistAC(id)
@@ -80,9 +80,9 @@ const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state=> sta
         //dispatchToTasks(removeTaskAC(id,todolistId))
     }
 
-    function addTask(title: string, todolistId: string) {
+    const addTask=useCallback((title: string, todolistId: string) =>{
         dispatch(addTaskAC(title, todolistId))
-    }
+    },[dispatch, addTaskAC])
 
     function changeStatus(id: string, isDone: boolean, todolistId: string) {
         dispatch(changeTaskStatusAC(id, isDone, todolistId))
