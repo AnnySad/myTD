@@ -29,7 +29,8 @@ type ChangeTaskTitleAT = {
 }
 
 
-export type ActionType = RemoveTasksAT
+export type ActionType =
+    RemoveTasksAT
     | AddTaskAT
     | ChangeTaskStatusAT
     | ChangeTaskTitleAT

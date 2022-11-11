@@ -3,10 +3,10 @@ import {TextField} from "@material-ui/core";
 
 type EditableSpanType = {
     title: string
-    changeTitle:(nextTitle:string)=>void
+    onChange:(nextTitle:string)=>void
 }
 
-export const EditableSpan = (props:EditableSpanType) => {
+export const EditableSpan =React.memo( (props:EditableSpanType) => {
     let [userText, setUserText] = useState(props.title)
     const [editMode, setEditMode] = useState<boolean>(false)
     const onChangeHandlerText = (e: ChangeEvent<HTMLInputElement>) => {
@@ -14,11 +14,12 @@ export const EditableSpan = (props:EditableSpanType) => {
     }
 
     const onEditMode = () => {
+        console.log('blabla')
         setEditMode(true)
     }
     const offEditMode = () => {
         setEditMode(false)
-       props.changeTitle(userText)
+       props.onChange(userText)
     }
 
     return (
@@ -34,4 +35,4 @@ export const EditableSpan = (props:EditableSpanType) => {
             />
             : <span onDoubleClick={onEditMode}>{props.title}</span>
     );
-};
+});

@@ -1,3 +1,4 @@
+/*
 import React, {useReducer, useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
@@ -105,10 +106,10 @@ function AppWithReducers() {
             </AppBar>
 
             <Container fixed>
-                <Grid container style={{padding: '20px'}}>  {/*зададим верхнему гриду (вокруг AddItemForm) паддинг*/}
+                <Grid container style={{padding: '20px'}}>  {/!*зададим верхнему гриду (вокруг AddItemForm) паддинг*!/}
                     <AddItemForm addItem={addTodolist}/>
                 </Grid>
-                <Grid container spacing={3}> {/*для родительского зададим spacing (отступы внутри между детьми)*/}
+                <Grid container spacing={3}> {/!*для родительского зададим spacing (отступы внутри между детьми)*!/}
                     {
                         todolists.map(tl => {
                             let allTodolistTasks = tasks[tl.id];
@@ -122,8 +123,8 @@ function AppWithReducers() {
                             }
 
                             return <Grid item>
-                                <Paper style={{padding: '10px'}}> {/*Обернем каждый тудулист Paper-ом
-                                    с заданным дополнительным стилем для паддинга (внутренного отступа)*/}
+                                <Paper style={{padding: '10px'}}> {/!*Обернем каждый тудулист Paper-ом
+                                    с заданным дополнительным стилем для паддинга (внутренного отступа)*!/}
                                     <Todolist
                                         key={tl.id}
                                         id={tl.id}
@@ -149,3 +150,5 @@ function AppWithReducers() {
 }
 
     export default AppWithReducers;
+*/
+export {}

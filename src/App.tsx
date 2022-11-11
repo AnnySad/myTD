@@ -157,7 +157,7 @@ function App() {
                                 filter={tl.filter}
                                 removeTodolist={removeTodolist}
                                 editTitleTodolist={editTitleTodolist}
-                                editTitleTask={changeTitleTask}
+                                changeTaskTitle={changeTitleTask}
                             />
                             </Paper>
                             </Grid>
