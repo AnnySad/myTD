@@ -6,6 +6,7 @@ import {Button, Checkbox} from "@material-ui/core";
 import {IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 import {Task} from "./components/Task";
+import {TaskRedux} from "./components/TaskRedux";
 
 export type TaskType = {
     id: string
@@ -59,14 +60,6 @@ export const Todolist = memo((props: PropsType) => {
         allTodolistTasks = allTodolistTasks.filter(t => t.isDone === true);
     }
 
-    const onClickHandler = useCallback((taskId:string) => props.removeTask(taskId, props.id),[props.removeTask,props.id])
-    const onChangeHandler =useCallback((taskId:string, newIsDoneValue:boolean) => {
-        props.changeTaskStatus(taskId, newIsDoneValue, props.id);
-    },[props.changeTaskStatus,props.id])
-    const onTitleChangeHandler = useCallback((taskId:string, nextTitle: string) => {
-        props.changeTaskTitle(taskId,  nextTitle, props.id);
-    },[ props.changeTaskTitle,props.id])
-
 
     return <div>
         <h3>
@@ -81,12 +74,10 @@ export const Todolist = memo((props: PropsType) => {
             {
                 allTodolistTasks.map(t => {
 
-                    return <Task
+                    return <TaskRedux
                         key={t.id}
-                        task={t}
-                        changeTaskStatus={onChangeHandler}
-                        changeTaskTitle={onTitleChangeHandler}
-                        removeTask={onClickHandler}/>
+                        taskId={t.id}
+                        todolistId={props.id}/>
                 })
             }
         </div>
