@@ -1,9 +1,8 @@
 import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {AddItemForm} from "../components/AddItemForm";
 import {action} from "@storybook/addon-actions";
 import {Task} from "../components/Task";
-import {TaskType} from "../Todolist";
+
 
 export default {
     title: 'TODO/Task',
@@ -12,7 +11,7 @@ export default {
         changeTaskStatus: action('changeTaskStatus'),
         changeTaskTitle: action('changeTaskTitle'),
         removeTask: action('removeTask'),
-        /* todoListId: 'dfcd',*/
+        todoListID: 'dfcd54',
     },
 } as ComponentMeta<typeof Task>;
 
